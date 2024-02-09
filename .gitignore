@@ -1,0 +1,11 @@
+.venv
+log/
+.idea/
+__pycache__
+.vscode/
+results
+interactive_console_output.xml
+screenshots*
+*.png
+*.html
+*.xml

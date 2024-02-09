@@ -1,0 +1,22 @@
+#  Variáveis referentes ao Usuários para Login
+LOGIN_COLABORADOR:
+    USER_1:
+        EMAIL: BLCarvalho
+        SENHA: 123
+
+    USER_2:
+        EMAIL: BNViana
+        SENHA: 123
+
+LOGIN_GESTOR:
+    USER_1:
+        EMAIL: SIFigueiredo
+        SENHA: 123
+
+    USER_2:
+        EMAIL: Alan
+        SENHA: 123
+
+    USER_3:
+        EMAIL: MMFreitas
+        SENHA: 123
