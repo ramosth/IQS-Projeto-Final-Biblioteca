@@ -1,0 +1,1206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1.1 (Python 3.9.2 on win32)" generated="20240209 16:18:27.561" rpa="false" schemaversion="4">
+<suite id="s1" name="Buscar Dominio" source="C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\tests\dominio\buscar_dominio.robot">
+<test id="s1-t1" name="Cenário: CT06 - Alterar dominio como Gestor" line="63">
+<kw name="Usuário loga no sistema" library="hooks" type="SETUP">
+<kw name="Join Path" library="OperatingSystem">
+<var>${download_outputdir}</var>
+<arg>${EXECDIR}</arg>
+<arg>src</arg>
+<arg>utils</arg>
+<arg>files</arg>
+<arg>downloads</arg>
+<doc>Joins the given path part(s) to the given base path.</doc>
+<msg timestamp="20240209 16:18:28.498" level="INFO">${download_outputdir} = C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads</msg>
+<status status="PASS" starttime="20240209 16:18:28.497" endtime="20240209 16:18:28.499"/>
+</kw>
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${download_outputdir}</arg>
+<doc>Creates the specified directory.</doc>
+<msg timestamp="20240209 16:18:28.500" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads&lt;/a&gt;' already exists.</msg>
+<status status="PASS" starttime="20240209 16:18:28.499" endtime="20240209 16:18:28.500"/>
+</kw>
+<kw name="Abrir Site" library="hooks">
+<kw name="Join Path" library="OperatingSystem">
+<var>${download_directory}</var>
+<arg>${EXECDIR}</arg>
+<arg>src</arg>
+<arg>utils</arg>
+<arg>files</arg>
+<arg>downloads</arg>
+<doc>Joins the given path part(s) to the given base path.</doc>
+<msg timestamp="20240209 16:18:28.501" level="INFO">${download_directory} = C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads</msg>
+<status status="PASS" starttime="20240209 16:18:28.501" endtime="20240209 16:18:28.501"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${prefs}</var>
+<arg>download.default_directory=${download_directory}</arg>
+<arg>safebrowsing.enabled=True</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20240209 16:18:28.502" level="INFO">${prefs} = {'download.default_directory': 'C:\\Users\\Thamires Ramos\\PycharmProjects\\pythonProject1\\src\\utils\\files\\downloads', 'safebrowsing.enabled': 'True'}</msg>
+<status status="PASS" starttime="20240209 16:18:28.502" endtime="20240209 16:18:28.502"/>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<arg>${config.browser.url_login}</arg>
+<arg>${config.browser.name}</arg>
+<arg>options=add_experimental_option("prefs",${prefs});add_experimental_option("excludeSwitches", ["enable-logging"]);add_experimental_option('useAutomationExtension', False);add_argument('--disable-blink-features=AutomationControlled');add_experimental_option("excludeSwitches", ["enable-automation"])</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<msg timestamp="20240209 16:18:28.505" level="INFO">Opening browser 'chrome' to base url 'http://sistemas.t2mlab.com:3008/'.</msg>
+<status status="PASS" starttime="20240209 16:18:28.503" endtime="20240209 16:18:34.449"/>
+</kw>
+<kw name="Maximize Browser Window" library="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" starttime="20240209 16:18:34.449" endtime="20240209 16:18:34.590"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:28.500" endtime="20240209 16:18:34.590"/>
+</kw>
+<kw name="Organizar arquivos de log" library="hooks">
+<arg>directory=${EXECDIR}</arg>
+<arg>action=deletar</arg>
+<arg>file_extension=png</arg>
+<kw name="List Files In Directory" library="OperatingSystem">
+<var>${directory_list}</var>
+<arg>${directory}</arg>
+<arg>*.${file_extension}</arg>
+<doc>Wrapper for `List Directory` that returns only files.</doc>
+<msg timestamp="20240209 16:18:34.592" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1&lt;/a&gt;'.</msg>
+<msg timestamp="20240209 16:18:34.593" level="INFO">0 files:
+</msg>
+<msg timestamp="20240209 16:18:34.593" level="INFO">${directory_list} = []</msg>
+<status status="PASS" starttime="20240209 16:18:34.591" endtime="20240209 16:18:34.593"/>
+</kw>
+<if>
+<branch type="IF" condition="'${action}' == 'mover'">
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${folder}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:34.594" endtime="20240209 16:18:34.594"/>
+</kw>
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Move File" library="OperatingSystem">
+<arg>${item}</arg>
+<arg>${folder}</arg>
+<doc>Moves the source file into the destination.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:34.595" endtime="20240209 16:18:34.596"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} movido para pasta ${folder}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:34.596" endtime="20240209 16:18:34.597"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:34.595" endtime="20240209 16:18:34.597"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:34.594" endtime="20240209 16:18:34.597"/>
+</for>
+<status status="NOT RUN" starttime="20240209 16:18:34.593" endtime="20240209 16:18:34.597"/>
+</branch>
+<branch type="ELSE IF" condition="'${action}' == 'deletar'">
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Remove File" library="OperatingSystem">
+<arg>${directory}/${item}</arg>
+<doc>Removes a file with the given path.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:34.598" endtime="20240209 16:18:34.599"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} deletado!!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:34.599" endtime="20240209 16:18:34.599"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:34.598" endtime="20240209 16:18:34.599"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:34.598" endtime="20240209 16:18:34.599"/>
+</for>
+<status status="PASS" starttime="20240209 16:18:34.597" endtime="20240209 16:18:34.600"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:34.593" endtime="20240209 16:18:34.600"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:34.590" endtime="20240209 16:18:34.601"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:28.496" endtime="20240209 16:18:34.601"/>
+</kw>
+<kw name="Dado que usuário realize login" library="login_keywords">
+<arg>${LOGIN_GESTOR.USER_2.EMAIL}</arg>
+<arg>${LOGIN_GESTOR.USER_2.SENHA}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${login_logo}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:34.609" endtime="20240209 16:18:34.673"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${login_input_login}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:34.673" endtime="20240209 16:18:34.700"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${login_input_login}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:34.701" level="INFO">Typing text 'Alan' into text field '//input[@id='formBasicEmail']'.</msg>
+<status status="PASS" starttime="20240209 16:18:34.701" endtime="20240209 16:18:34.882"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${login_input_senha}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:34.882" endtime="20240209 16:18:34.907"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${login_input_senha}</arg>
+<arg>${senha}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:34.909" level="INFO">Typing text '123' into text field '//input[@id='formBasicPassword']'.</msg>
+<status status="PASS" starttime="20240209 16:18:34.908" endtime="20240209 16:18:35.009"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${login_button_login}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:35.013" level="INFO">Clicking element '//button[@role='button']'.</msg>
+<status status="PASS" starttime="20240209 16:18:35.011" endtime="20240209 16:18:35.068"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:34.603" endtime="20240209 16:18:35.069"/>
+</kw>
+<kw name="E esteja na tela inicial do sistema" library="login_keywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${home_saudacao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:35.070" endtime="20240209 16:18:35.563"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${usuario}</var>
+<arg>${home_saudacao}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:35.611" level="INFO">${usuario} = Bem-vindo(a), Alan!</msg>
+<status status="PASS" starttime="20240209 16:18:35.563" endtime="20240209 16:18:35.611"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${usuario}</arg>
+<arg>Bem-vindo(a)</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240209 16:18:35.612" endtime="20240209 16:18:35.612"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.069" endtime="20240209 16:18:35.612"/>
+</kw>
+<kw name="Quando acessar a tela de busca de dominio" library="dominio_keywords">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_sistema_biblioteca}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:35.614" endtime="20240209 16:18:35.633"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:35.633" endtime="20240209 16:18:35.659"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:35.661" level="INFO">Clicking element '//button[.='SBSistema de Biblioteca']'.</msg>
+<status status="PASS" starttime="20240209 16:18:35.660" endtime="20240209 16:18:35.717"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.613" endtime="20240209 16:18:35.717"/>
+</kw>
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_dominio}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:35.718" endtime="20240209 16:18:35.741"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:35.742" endtime="20240209 16:18:35.771"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:35.772" level="INFO">Clicking element '//button[.='Domínio']'.</msg>
+<status status="PASS" starttime="20240209 16:18:35.771" endtime="20240209 16:18:35.823"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.718" endtime="20240209 16:18:35.824"/>
+</kw>
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_buscar_dominio}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:35.825" endtime="20240209 16:18:35.848"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:35.848" endtime="20240209 16:18:35.873"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:35.874" level="INFO">Clicking element '//button[.='Buscar Domínio']'.</msg>
+<status status="PASS" starttime="20240209 16:18:35.874" endtime="20240209 16:18:35.938"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.824" endtime="20240209 16:18:35.939"/>
+</kw>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${dominio_titulo_buscar}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:35.939" endtime="20240209 16:18:35.966"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.613" endtime="20240209 16:18:35.966"/>
+</kw>
+<kw name="E validar acesso a tela de" library="hooks">
+<arg>url=${config.browser.url_dominio_buscar}</arg>
+<kw name="Get Location" library="SeleniumLibrary">
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<msg timestamp="20240209 16:18:35.977" level="INFO">${url_atual} = http://sistemas.t2mlab.com:3008/buscar-dominio</msg>
+<status status="PASS" starttime="20240209 16:18:35.968" endtime="20240209 16:18:35.977"/>
+</kw>
+<kw name="Wait Until Location Contains" library="SeleniumLibrary">
+<arg>${url}</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" starttime="20240209 16:18:35.978" endtime="20240209 16:18:35.983"/>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<arg>${url}</arg>
+<doc>Verifies that the current URL contains ``expected``.</doc>
+<msg timestamp="20240209 16:18:35.989" level="INFO">Current location contains 'http://sistemas.t2mlab.com:3008/buscar-dominio'.</msg>
+<status status="PASS" starttime="20240209 16:18:35.983" endtime="20240209 16:18:35.989"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>${url}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240209 16:18:35.989" endtime="20240209 16:18:35.990"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.966" endtime="20240209 16:18:35.990"/>
+</kw>
+<kw name="E clicar em um item para 'Alterar dominio'" library="categoria_keywords" sourcename="E clicar em um item para ${ação}">
+<if>
+<branch type="IF" condition="${ação} == 'Alterar'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[3]</arg>
+<status status="NOT RUN" starttime="20240209 16:18:35.991" endtime="20240209 16:18:35.991"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:35.990" endtime="20240209 16:18:35.991"/>
+</branch>
+<branch type="ELSE IF" condition="${ação} == 'Excluir'">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.992" endtime="20240209 16:18:35.992"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.992" endtime="20240209 16:18:35.992"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${nome_exclusao}</var>
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.992" endtime="20240209 16:18:35.993"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${nome_teste}</arg>
+<arg>${nome_exclusao}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.993" endtime="20240209 16:18:35.993"/>
+</kw>
+<kw name="Clicar no elemento" library="hooks">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[4]</arg>
+<status status="NOT RUN" starttime="20240209 16:18:35.993" endtime="20240209 16:18:35.993"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:35.991" endtime="20240209 16:18:35.994"/>
+</branch>
+<branch type="ELSE IF" condition="${ação} == 'Ativar'">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.994" endtime="20240209 16:18:35.995"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.995" endtime="20240209 16:18:35.995"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${nome_ativar}</var>
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.995" endtime="20240209 16:18:35.995"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${nome_teste}</arg>
+<arg>${nome_ativar}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:35.995" endtime="20240209 16:18:35.995"/>
+</kw>
+<kw name="Clicar no elemento" library="hooks">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[3]</arg>
+<status status="NOT RUN" starttime="20240209 16:18:35.996" endtime="20240209 16:18:35.996"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:35.994" endtime="20240209 16:18:35.996"/>
+</branch>
+<branch type="ELSE IF" condition="${ação} == 'Alterar dominio'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[2]</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:35.997" endtime="20240209 16:18:36.250"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:36.250" endtime="20240209 16:18:36.276"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:36.277" level="INFO">Clicking element '//table[@class='table table-striped table-hover']/tbody/tr[1]/td[2]'.</msg>
+<status status="PASS" starttime="20240209 16:18:36.276" endtime="20240209 16:18:36.331"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.996" endtime="20240209 16:18:36.331"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:35.996" endtime="20240209 16:18:36.331"/>
+</branch>
+<branch type="ELSE IF" condition="${ação} == 'Excluir dominio'">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[3]/td[1]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.332" endtime="20240209 16:18:36.333"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[3]/td[1]</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.333" endtime="20240209 16:18:36.333"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${nome_exclusao}</var>
+<arg>${common_tabela_buscar}/tbody/tr[3]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.334" endtime="20240209 16:18:36.334"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${nome_teste}</arg>
+<arg>${nome_exclusao}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.334" endtime="20240209 16:18:36.335"/>
+</kw>
+<kw name="Clicar no elemento" library="hooks">
+<arg>${common_tabela_buscar}/tbody/tr[3]/td[3]</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.335" endtime="20240209 16:18:36.336"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.332" endtime="20240209 16:18:36.336"/>
+</branch>
+<branch type="ELSE IF" condition="${ação} == 'Ativar dominio'">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.336" endtime="20240209 16:18:36.336"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.337" endtime="20240209 16:18:36.337"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${nome_ativar}</var>
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.337" endtime="20240209 16:18:36.337"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${nome_teste}</arg>
+<arg>${nome_ativar}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:36.338" endtime="20240209 16:18:36.339"/>
+</kw>
+<kw name="Clicar no elemento" library="hooks">
+<arg>${common_tabela_buscar}/tbody/tr[1]/td[2]</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.339" endtime="20240209 16:18:36.339"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.336" endtime="20240209 16:18:36.339"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:35.990" endtime="20240209 16:18:36.339"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:35.990" endtime="20240209 16:18:36.339"/>
+</kw>
+<kw name="E validar acesso a tela de" library="hooks">
+<arg>url=${config.browser.url_dominio_alterar}</arg>
+<kw name="Get Location" library="SeleniumLibrary">
+<var>${url_atual}</var>
+<doc>Returns the current browser window URL.</doc>
+<msg timestamp="20240209 16:18:36.351" level="INFO">${url_atual} = http://sistemas.t2mlab.com:3008/alterar-dominio/97</msg>
+<status status="PASS" starttime="20240209 16:18:36.342" endtime="20240209 16:18:36.351"/>
+</kw>
+<kw name="Wait Until Location Contains" library="SeleniumLibrary">
+<arg>${url}</arg>
+<doc>Waits until the current URL contains ``expected``.</doc>
+<status status="PASS" starttime="20240209 16:18:36.351" endtime="20240209 16:18:36.357"/>
+</kw>
+<kw name="Location Should Contain" library="SeleniumLibrary">
+<arg>${url}</arg>
+<doc>Verifies that the current URL contains ``expected``.</doc>
+<msg timestamp="20240209 16:18:36.366" level="INFO">Current location contains 'http://sistemas.t2mlab.com:3008/alterar-dominio/'.</msg>
+<status status="PASS" starttime="20240209 16:18:36.358" endtime="20240209 16:18:36.367"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${url_atual}</arg>
+<arg>${url}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240209 16:18:36.367" endtime="20240209 16:18:36.367"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.339" endtime="20240209 16:18:36.367"/>
+</kw>
+<kw name="E preencher o campo Nome em dominio" library="dominio_keywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${dominio_input_nome}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:36.368" endtime="20240209 16:18:36.393"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${dominio_input_nome}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:36.393" endtime="20240209 16:18:36.421"/>
+</kw>
+<kw name="Generate Random String" library="String">
+<var>${nome_aleatorio}</var>
+<arg>length=10-20</arg>
+<arg>chars=[LETTERS]</arg>
+<doc>Generates a string with a desired ``length`` from the given ``chars``.</doc>
+<msg timestamp="20240209 16:18:36.422" level="INFO">${nome_aleatorio} = eICwDelGqzwZHZUHxDu</msg>
+<status status="PASS" starttime="20240209 16:18:36.422" endtime="20240209 16:18:36.422"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${nome_teste}</arg>
+<arg>${nome_aleatorio}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240209 16:18:36.424" level="INFO">${nome_teste} = eICwDelGqzwZHZUHxDu</msg>
+<status status="PASS" starttime="20240209 16:18:36.423" endtime="20240209 16:18:36.425"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${dominio_input_nome}</arg>
+<arg>${nome_aleatorio}</arg>
+<arg>clear=True</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:36.425" level="INFO">Typing text 'eICwDelGqzwZHZUHxDu' into text field '//input[@id='nomeDominio']'.</msg>
+<status status="PASS" starttime="20240209 16:18:36.425" endtime="20240209 16:18:36.575"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.368" endtime="20240209 16:18:36.575"/>
+</kw>
+<kw name="E clicar em Alterar" library="hooks">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_alterar}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:36.578" endtime="20240209 16:18:36.603"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:36.603" endtime="20240209 16:18:36.631"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:36.632" level="INFO">Clicking element '//button[.='Alterar']'.</msg>
+<status status="PASS" starttime="20240209 16:18:36.631" endtime="20240209 16:18:36.684"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.577" endtime="20240209 16:18:36.685"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.575" endtime="20240209 16:18:36.685"/>
+</kw>
+<kw name="Então o sistema abre um modal de confirmação de alteração" library="categoria_keywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_modal_titulo}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:36.686" endtime="20240209 16:18:36.712"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${common_modal_titulo}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:36.712" endtime="20240209 16:18:36.736"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${common_modal_titulo}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20240209 16:18:36.754" level="INFO">Element '//div[@class='modal-title h4']' is displayed.</msg>
+<status status="PASS" starttime="20240209 16:18:36.736" endtime="20240209 16:18:36.754"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${common_modal_texto}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20240209 16:18:36.785" level="INFO">Element '//div[@class='text-center modal-body']' is displayed.</msg>
+<status status="PASS" starttime="20240209 16:18:36.754" endtime="20240209 16:18:36.785"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${home_button_alterar}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20240209 16:18:36.807" level="INFO">Element '//button[.='Alterar']' is displayed.</msg>
+<status status="PASS" starttime="20240209 16:18:36.786" endtime="20240209 16:18:36.808"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${home_button_modal_cancelar}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20240209 16:18:36.839" level="INFO">Element '//div[@class='modal-footer']/div/button[.='Cancelar']' is displayed.</msg>
+<status status="PASS" starttime="20240209 16:18:36.808" endtime="20240209 16:18:36.840"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${home_button_modal_fechar}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20240209 16:18:36.869" level="INFO">Element '//button[@class='btn-close']' is displayed.</msg>
+<status status="PASS" starttime="20240209 16:18:36.840" endtime="20240209 16:18:36.869"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.685" endtime="20240209 16:18:36.870"/>
+</kw>
+<kw name="E confirmar o modal clicando em 'Alterar'" library="hooks" sourcename="E confirmar o modal clicando em ${acao}">
+<if>
+<branch type="IF" condition="${acao} == 'Cadastrar'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_modal_cadastrar}</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.871" endtime="20240209 16:18:36.871"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.870" endtime="20240209 16:18:36.871"/>
+</branch>
+<branch type="ELSE IF" condition="${acao} == 'Alterar'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_modal_alterar}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:36.872" endtime="20240209 16:18:36.899"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:36.899" endtime="20240209 16:18:36.924"/>
+</kw>
+<kw name="Click Element" library="SeleniumLibrary">
+<arg>${botao}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:36.925" level="INFO">Clicking element '//div[@class='modal-footer']/div/button[.='Alterar']'.</msg>
+<status status="PASS" starttime="20240209 16:18:36.924" endtime="20240209 16:18:36.969"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.872" endtime="20240209 16:18:36.970"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.871" endtime="20240209 16:18:36.970"/>
+</branch>
+<branch type="ELSE IF" condition="${acao} == 'Deletar'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_modal_deletar}</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.971" endtime="20240209 16:18:36.971"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.970" endtime="20240209 16:18:36.971"/>
+</branch>
+<branch type="ELSE IF" condition="${acao} == 'Ativar'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_modal_ativar}</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.973" endtime="20240209 16:18:36.973"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.971" endtime="20240209 16:18:36.973"/>
+</branch>
+<branch type="ELSE IF" condition="${acao} == 'Sim'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_modal_sim}</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.973" endtime="20240209 16:18:36.973"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.973" endtime="20240209 16:18:36.973"/>
+</branch>
+<branch type="ELSE IF" condition="${acao} == 'Não'">
+<kw name="Clicar no elemento" library="hooks">
+<arg>${home_button_modal_não}</arg>
+<status status="NOT RUN" starttime="20240209 16:18:36.974" endtime="20240209 16:18:36.974"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:36.973" endtime="20240209 16:18:36.974"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:36.870" endtime="20240209 16:18:36.974"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:36.870" endtime="20240209 16:18:36.974"/>
+</kw>
+<kw name="Então o sistema exibe um alerta de" library="hooks">
+<arg>alerta=${dominio_alerta_alteracao_sucesso}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${home_mensagem_alerta}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:36.975" endtime="20240209 16:18:37.485"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${home_mensagem_alerta}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:37.485" endtime="20240209 16:18:37.514"/>
+</kw>
+<kw name="Element Should Be Visible" library="SeleniumLibrary">
+<arg>${home_mensagem_alerta}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<msg timestamp="20240209 16:18:37.532" level="INFO">Element '//div[@class='Toastify']//div[@role='alert']/div[2]' is displayed.</msg>
+<status status="PASS" starttime="20240209 16:18:37.514" endtime="20240209 16:18:37.532"/>
+</kw>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${texto}</var>
+<arg>${home_mensagem_alerta}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:37.550" level="INFO">${texto} = Domínio alterado com sucesso.</msg>
+<status status="PASS" starttime="20240209 16:18:37.533" endtime="20240209 16:18:37.550"/>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${texto}</arg>
+<arg>${alerta}</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240209 16:18:37.550" endtime="20240209 16:18:37.551"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:36.974" endtime="20240209 16:18:37.551"/>
+</kw>
+<kw name="E item editado é exibido na listagem geral" library="categoria_keywords">
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_input_buscar}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:37.551" endtime="20240209 16:18:37.572"/>
+</kw>
+<kw name="E preencher o campo Buscar" library="categoria_keywords">
+<arg>palavra_pesquisada=${nome_teste}</arg>
+<kw name="Wait Until Element Is Visible" library="SeleniumLibrary">
+<arg>${common_input_buscar}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" starttime="20240209 16:18:37.573" endtime="20240209 16:18:37.594"/>
+</kw>
+<kw name="Wait Until Element Is Enabled" library="SeleniumLibrary">
+<arg>${common_input_buscar}</arg>
+<doc>Waits until the element ``locator`` is enabled.</doc>
+<status status="PASS" starttime="20240209 16:18:37.595" endtime="20240209 16:18:37.620"/>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<arg>${common_input_buscar}</arg>
+<arg>${palavra_pesquisada}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:37.621" level="INFO">Typing text 'eICwDelGqzwZHZUHxDu' into text field '//input[@class='form-control']'.</msg>
+<status status="PASS" starttime="20240209 16:18:37.620" endtime="20240209 16:18:37.743"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:37.573" endtime="20240209 16:18:37.743"/>
+</kw>
+<kw name="Então o sistema deve listar a palavra pesquisada" library="categoria_keywords">
+<arg>palavra_pesquisada=${nome_teste}</arg>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20240209 16:18:38.757" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20240209 16:18:37.744" endtime="20240209 16:18:38.759"/>
+</kw>
+<kw name="Get Element Count" library="SeleniumLibrary">
+<var>${linha}</var>
+<arg>${common_tabela_buscar}/tbody/tr</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<msg timestamp="20240209 16:18:38.801" level="INFO">${linha} = 1</msg>
+<status status="PASS" starttime="20240209 16:18:38.762" endtime="20240209 16:18:38.801"/>
+</kw>
+<for flavor="IN RANGE">
+<var>${counter}</var>
+<value>1</value>
+<value>${linha} + 1</value>
+<iter>
+<var name="${counter}">1</var>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${texto_linha}</var>
+<arg>${common_tabela_buscar}/tbody/tr[${counter}]/td[1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:38.826" level="INFO">${texto_linha} = eICwDelGqzwZHZUHxDu</msg>
+<status status="PASS" starttime="20240209 16:18:38.803" endtime="20240209 16:18:38.826"/>
+</kw>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<var>${verifica_palavra_tabela}</var>
+<arg>Should Contain</arg>
+<arg>${texto_linha}</arg>
+<arg>${palavra_pesquisada}</arg>
+<arg>ignore_case = True</arg>
+<arg>strip_spaces = True</arg>
+<arg>collapse_spaces = True</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${texto_linha}</arg>
+<arg>${palavra_pesquisada}</arg>
+<arg>ignore_case = True</arg>
+<arg>strip_spaces = True</arg>
+<arg>collapse_spaces = True</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240209 16:18:38.826" endtime="20240209 16:18:38.828"/>
+</kw>
+<msg timestamp="20240209 16:18:38.828" level="INFO">${verifica_palavra_tabela} = True</msg>
+<status status="PASS" starttime="20240209 16:18:38.826" endtime="20240209 16:18:38.828"/>
+</kw>
+<if>
+<branch type="IF" condition="${verifica_palavra_tabela}">
+<continue>
+<status status="PASS" starttime="20240209 16:18:38.828" endtime="20240209 16:18:38.828"/>
+</continue>
+<status status="PASS" starttime="20240209 16:18:38.828" endtime="20240209 16:18:38.829"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" library="BuiltIn">
+<arg>Foi encontrado na tabela resultado diferente da palavra '${palavra_pesquisada}' esperada.</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:38.829" endtime="20240209 16:18:38.829"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:38.829" endtime="20240209 16:18:38.829"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:38.828" endtime="20240209 16:18:38.829"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:38.803" endtime="20240209 16:18:38.830"/>
+</iter>
+<status status="PASS" starttime="20240209 16:18:38.802" endtime="20240209 16:18:38.830"/>
+</for>
+<kw name="Get Text" library="SeleniumLibrary">
+<var>${texto_linha}</var>
+<arg>${common_tabela_total_registros}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<msg timestamp="20240209 16:18:38.852" level="INFO">${texto_linha} = Total de registros: 1</msg>
+<status status="PASS" starttime="20240209 16:18:38.830" endtime="20240209 16:18:38.853"/>
+</kw>
+<kw name="Should Not Contain" library="BuiltIn">
+<arg>${texto_linha}</arg>
+<arg>0</arg>
+<doc>Fails if ``container`` contains ``item`` one or more times.</doc>
+<status status="PASS" starttime="20240209 16:18:38.853" endtime="20240209 16:18:38.855"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:37.743" endtime="20240209 16:18:38.855"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:37.551" endtime="20240209 16:18:38.855"/>
+</kw>
+<kw name="Evidenciar teste na pasta" library="hooks" type="TEARDOWN">
+<arg>Busca_Dominio</arg>
+<kw name="Get Time" library="BuiltIn">
+<var>${date}</var>
+<doc>Returns the given time in the requested format.</doc>
+<msg timestamp="20240209 16:18:38.857" level="INFO">${date} = 2024-02-09 16:18:38</msg>
+<status status="PASS" starttime="20240209 16:18:38.856" endtime="20240209 16:18:38.857"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${date_string}</var>
+<arg>${date}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20240209 16:18:38.857" level="INFO">${date_string} = 2024-02-09 16:18:38</msg>
+<status status="PASS" starttime="20240209 16:18:38.857" endtime="20240209 16:18:38.857"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${date_formated}</var>
+<arg>${date_string}</arg>
+<arg>:</arg>
+<arg>_</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20240209 16:18:38.858" level="INFO">${date_formated} = 2024-02-09 16_18_38</msg>
+<status status="PASS" starttime="20240209 16:18:38.858" endtime="20240209 16:18:38.858"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${only_hour}</var>
+<arg>${date_formated}</arg>
+<arg>separator=${EMPTY}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<msg timestamp="20240209 16:18:38.859" level="INFO">${only_hour} = ['2024-02-09', '16_18_38']</msg>
+<status status="PASS" starttime="20240209 16:18:38.858" endtime="20240209 16:18:38.859"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${only_date}</var>
+<arg>${date_string}</arg>
+<arg>separator=${EMPTY}</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<msg timestamp="20240209 16:18:38.861" level="INFO">${only_date} = ['2024-02-09', '16:18:38']</msg>
+<status status="PASS" starttime="20240209 16:18:38.860" endtime="20240209 16:18:38.861"/>
+</kw>
+<kw name="Split String" library="String">
+<var>${date_splited}</var>
+<arg>${only_date[0]}</arg>
+<arg>separator=-</arg>
+<doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
+<msg timestamp="20240209 16:18:38.863" level="INFO">${date_splited} = ['2024', '02', '09']</msg>
+<status status="PASS" starttime="20240209 16:18:38.862" endtime="20240209 16:18:38.863"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${year}</arg>
+<arg>${date_splited[0]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240209 16:18:38.867" level="INFO">${year} = 2024</msg>
+<status status="PASS" starttime="20240209 16:18:38.863" endtime="20240209 16:18:38.867"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${month}</arg>
+<arg>${date_splited[1]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240209 16:18:38.869" level="INFO">${month} = 02</msg>
+<status status="PASS" starttime="20240209 16:18:38.867" endtime="20240209 16:18:38.869"/>
+</kw>
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${day}</arg>
+<arg>${date_splited[2]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20240209 16:18:38.872" level="INFO">${day} = 09</msg>
+<status status="PASS" starttime="20240209 16:18:38.869" endtime="20240209 16:18:38.872"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${full_directory}</var>
+<arg>${config.files.screenshot_outputted} ${day}-${month}-${year}/${folder}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20240209 16:18:38.874" level="INFO">${full_directory} = screenshots 09-02-2024/Busca_Dominio</msg>
+<status status="PASS" starttime="20240209 16:18:38.872" endtime="20240209 16:18:38.874"/>
+</kw>
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${full_directory}</arg>
+<doc>Creates the specified directory.</doc>
+<msg timestamp="20240209 16:18:38.874" level="INFO" html="true">Directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\screenshots 09-02-2024\Busca_Dominio"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\screenshots 09-02-2024\Busca_Dominio&lt;/a&gt;' already exists.</msg>
+<status status="PASS" starttime="20240209 16:18:38.874" endtime="20240209 16:18:38.876"/>
+</kw>
+<kw name="Set Screenshot Directory" library="SeleniumLibrary">
+<arg>${full_directory}</arg>
+<doc>Sets the directory for captured screenshots.</doc>
+<status status="PASS" starttime="20240209 16:18:38.876" endtime="20240209 16:18:38.876"/>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<var>${string_name}</var>
+<arg>${TEST_NAME}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<msg timestamp="20240209 16:18:38.876" level="INFO">${string_name} = Cenário: CT06 - Alterar dominio como Gestor</msg>
+<status status="PASS" starttime="20240209 16:18:38.876" endtime="20240209 16:18:38.876"/>
+</kw>
+<kw name="Remove String" library="String">
+<var>${nome_cenario}</var>
+<arg>${string_name}</arg>
+<arg>Cenário:</arg>
+<doc>Removes all ``removables`` from the given ``string``.</doc>
+<msg timestamp="20240209 16:18:38.878" level="INFO">${nome_cenario} =  CT06 - Alterar dominio como Gestor</msg>
+<status status="PASS" starttime="20240209 16:18:38.876" endtime="20240209 16:18:38.878"/>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<msg timestamp="20240209 16:18:39.880" level="INFO">Slept 1 second</msg>
+<status status="PASS" starttime="20240209 16:18:38.878" endtime="20240209 16:18:39.881"/>
+</kw>
+<if>
+<branch type="IF" condition="'${TEST_STATUS}' == 'PASS'">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<arg>filename=${nome_cenario} [ SUCESSO ] ${only_hour[1]}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<msg timestamp="20240209 16:18:40.103" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="../screenshots%2009-02-2024/Busca_Dominio/%20CT06%20-%20Alterar%20dominio%20como%20Gestor%20%5B%20SUCESSO%20%5D%2016_18_38.png"&gt;&lt;img src="../screenshots%2009-02-2024/Busca_Dominio/%20CT06%20-%20Alterar%20dominio%20como%20Gestor%20%5B%20SUCESSO%20%5D%2016_18_38.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20240209 16:18:39.885" endtime="20240209 16:18:40.103"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:39.882" endtime="20240209 16:18:40.103"/>
+</branch>
+<branch type="ELSE IF" condition="'${TEST_STATUS}' == 'FAIL'">
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<arg>filename=${nome_cenario} [ FALHA ] ${only_hour[1]}.png</arg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:40.104" endtime="20240209 16:18:40.104"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:40.104" endtime="20240209 16:18:40.104"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:39.882" endtime="20240209 16:18:40.104"/>
+</if>
+<kw name="Close All Browsers" library="SeleniumLibrary">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20240209 16:18:40.105" endtime="20240209 16:18:46.416"/>
+</kw>
+<kw name="Organizar arquivos de log" library="hooks">
+<arg>deletar</arg>
+<arg>csv</arg>
+<kw name="List Files In Directory" library="OperatingSystem">
+<var>${directory_list}</var>
+<arg>${directory}</arg>
+<arg>*.${file_extension}</arg>
+<doc>Wrapper for `List Directory` that returns only files.</doc>
+<msg timestamp="20240209 16:18:46.425" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads&lt;/a&gt;'.</msg>
+<msg timestamp="20240209 16:18:46.427" level="INFO">0 files:
+</msg>
+<msg timestamp="20240209 16:18:46.429" level="INFO">${directory_list} = []</msg>
+<status status="PASS" starttime="20240209 16:18:46.421" endtime="20240209 16:18:46.429"/>
+</kw>
+<if>
+<branch type="IF" condition="'${action}' == 'mover'">
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${folder}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.431" endtime="20240209 16:18:46.432"/>
+</kw>
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Move File" library="OperatingSystem">
+<arg>${item}</arg>
+<arg>${folder}</arg>
+<doc>Moves the source file into the destination.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.434" endtime="20240209 16:18:46.434"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} movido para pasta ${folder}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.435" endtime="20240209 16:18:46.435"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.433" endtime="20240209 16:18:46.435"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.432" endtime="20240209 16:18:46.435"/>
+</for>
+<status status="NOT RUN" starttime="20240209 16:18:46.430" endtime="20240209 16:18:46.436"/>
+</branch>
+<branch type="ELSE IF" condition="'${action}' == 'deletar'">
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Remove File" library="OperatingSystem">
+<arg>${directory}/${item}</arg>
+<doc>Removes a file with the given path.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.438" endtime="20240209 16:18:46.438"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} deletado!!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.439" endtime="20240209 16:18:46.439"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.437" endtime="20240209 16:18:46.439"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.437" endtime="20240209 16:18:46.440"/>
+</for>
+<status status="PASS" starttime="20240209 16:18:46.436" endtime="20240209 16:18:46.440"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:46.430" endtime="20240209 16:18:46.441"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:46.418" endtime="20240209 16:18:46.441"/>
+</kw>
+<kw name="Organizar arquivos de log" library="hooks">
+<arg>deletar</arg>
+<arg>pdf</arg>
+<kw name="List Files In Directory" library="OperatingSystem">
+<var>${directory_list}</var>
+<arg>${directory}</arg>
+<arg>*.${file_extension}</arg>
+<doc>Wrapper for `List Directory` that returns only files.</doc>
+<msg timestamp="20240209 16:18:46.444" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads&lt;/a&gt;'.</msg>
+<msg timestamp="20240209 16:18:46.445" level="INFO">0 files:
+</msg>
+<msg timestamp="20240209 16:18:46.445" level="INFO">${directory_list} = []</msg>
+<status status="PASS" starttime="20240209 16:18:46.443" endtime="20240209 16:18:46.445"/>
+</kw>
+<if>
+<branch type="IF" condition="'${action}' == 'mover'">
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${folder}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.447" endtime="20240209 16:18:46.447"/>
+</kw>
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Move File" library="OperatingSystem">
+<arg>${item}</arg>
+<arg>${folder}</arg>
+<doc>Moves the source file into the destination.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.448" endtime="20240209 16:18:46.449"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} movido para pasta ${folder}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.449" endtime="20240209 16:18:46.450"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.448" endtime="20240209 16:18:46.450"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.447" endtime="20240209 16:18:46.450"/>
+</for>
+<status status="NOT RUN" starttime="20240209 16:18:46.446" endtime="20240209 16:18:46.451"/>
+</branch>
+<branch type="ELSE IF" condition="'${action}' == 'deletar'">
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Remove File" library="OperatingSystem">
+<arg>${directory}/${item}</arg>
+<doc>Removes a file with the given path.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.453" endtime="20240209 16:18:46.453"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} deletado!!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.453" endtime="20240209 16:18:46.454"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.452" endtime="20240209 16:18:46.454"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.451" endtime="20240209 16:18:46.454"/>
+</for>
+<status status="PASS" starttime="20240209 16:18:46.451" endtime="20240209 16:18:46.454"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:46.446" endtime="20240209 16:18:46.454"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:46.441" endtime="20240209 16:18:46.454"/>
+</kw>
+<kw name="Organizar arquivos de log" library="hooks">
+<arg>deletar</arg>
+<arg>zip</arg>
+<kw name="List Files In Directory" library="OperatingSystem">
+<var>${directory_list}</var>
+<arg>${directory}</arg>
+<arg>*.${file_extension}</arg>
+<doc>Wrapper for `List Directory` that returns only files.</doc>
+<msg timestamp="20240209 16:18:46.457" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads&lt;/a&gt;'.</msg>
+<msg timestamp="20240209 16:18:46.458" level="INFO">0 files:
+</msg>
+<msg timestamp="20240209 16:18:46.458" level="INFO">${directory_list} = []</msg>
+<status status="PASS" starttime="20240209 16:18:46.456" endtime="20240209 16:18:46.458"/>
+</kw>
+<if>
+<branch type="IF" condition="'${action}' == 'mover'">
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${folder}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.459" endtime="20240209 16:18:46.460"/>
+</kw>
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Move File" library="OperatingSystem">
+<arg>${item}</arg>
+<arg>${folder}</arg>
+<doc>Moves the source file into the destination.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.461" endtime="20240209 16:18:46.461"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} movido para pasta ${folder}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.462" endtime="20240209 16:18:46.462"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.460" endtime="20240209 16:18:46.462"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.460" endtime="20240209 16:18:46.462"/>
+</for>
+<status status="NOT RUN" starttime="20240209 16:18:46.459" endtime="20240209 16:18:46.462"/>
+</branch>
+<branch type="ELSE IF" condition="'${action}' == 'deletar'">
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Remove File" library="OperatingSystem">
+<arg>${directory}/${item}</arg>
+<doc>Removes a file with the given path.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.464" endtime="20240209 16:18:46.464"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} deletado!!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.465" endtime="20240209 16:18:46.465"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.463" endtime="20240209 16:18:46.465"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.463" endtime="20240209 16:18:46.465"/>
+</for>
+<status status="PASS" starttime="20240209 16:18:46.463" endtime="20240209 16:18:46.466"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:46.459" endtime="20240209 16:18:46.466"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:46.455" endtime="20240209 16:18:46.466"/>
+</kw>
+<kw name="Organizar arquivos de log" library="hooks">
+<arg>deletar</arg>
+<arg>xml</arg>
+<kw name="List Files In Directory" library="OperatingSystem">
+<var>${directory_list}</var>
+<arg>${directory}</arg>
+<arg>*.${file_extension}</arg>
+<doc>Wrapper for `List Directory` that returns only files.</doc>
+<msg timestamp="20240209 16:18:46.468" level="INFO" html="true">Listing contents of directory '&lt;a href="file://C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads"&gt;C:\Users\Thamires Ramos\PycharmProjects\pythonProject1\src\utils\files\downloads&lt;/a&gt;'.</msg>
+<msg timestamp="20240209 16:18:46.468" level="INFO">0 files:
+</msg>
+<msg timestamp="20240209 16:18:46.469" level="INFO">${directory_list} = []</msg>
+<status status="PASS" starttime="20240209 16:18:46.467" endtime="20240209 16:18:46.469"/>
+</kw>
+<if>
+<branch type="IF" condition="'${action}' == 'mover'">
+<kw name="Create Directory" library="OperatingSystem">
+<arg>${folder}</arg>
+<doc>Creates the specified directory.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.470" endtime="20240209 16:18:46.470"/>
+</kw>
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Move File" library="OperatingSystem">
+<arg>${item}</arg>
+<arg>${folder}</arg>
+<doc>Moves the source file into the destination.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.471" endtime="20240209 16:18:46.471"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} movido para pasta ${folder}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.471" endtime="20240209 16:18:46.471"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.470" endtime="20240209 16:18:46.472"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.470" endtime="20240209 16:18:46.472"/>
+</for>
+<status status="NOT RUN" starttime="20240209 16:18:46.469" endtime="20240209 16:18:46.472"/>
+</branch>
+<branch type="ELSE IF" condition="'${action}' == 'deletar'">
+<for flavor="IN">
+<var>${item}</var>
+<value>@{directory_list}</value>
+<iter>
+<var name="${item}"/>
+<kw name="Remove File" library="OperatingSystem">
+<arg>${directory}/${item}</arg>
+<doc>Removes a file with the given path.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.473" endtime="20240209 16:18:46.473"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${item} deletado!!</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" starttime="20240209 16:18:46.474" endtime="20240209 16:18:46.474"/>
+</kw>
+<status status="NOT RUN" starttime="20240209 16:18:46.473" endtime="20240209 16:18:46.474"/>
+</iter>
+<status status="NOT RUN" starttime="20240209 16:18:46.472" endtime="20240209 16:18:46.474"/>
+</for>
+<status status="PASS" starttime="20240209 16:18:46.472" endtime="20240209 16:18:46.474"/>
+</branch>
+<status status="PASS" starttime="20240209 16:18:46.469" endtime="20240209 16:18:46.475"/>
+</if>
+<status status="PASS" starttime="20240209 16:18:46.466" endtime="20240209 16:18:46.475"/>
+</kw>
+<status status="PASS" starttime="20240209 16:18:38.855" endtime="20240209 16:18:46.475"/>
+</kw>
+<tag>Regression</tag>
+<status status="PASS" starttime="20240209 16:18:28.495" endtime="20240209 16:18:46.475"/>
+</test>
+<doc>Testes de Busca de Dominio</doc>
+<status status="PASS" starttime="20240209 16:18:27.564" endtime="20240209 16:18:46.476"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">Regression</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Buscar Dominio">Buscar Dominio</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

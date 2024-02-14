@@ -1,0 +1,22 @@
+config:
+  browser:
+    name: chrome
+    url_login: http://sistemas.t2mlab.com:3008/
+    url_sistema_biblioteca: http://sistemas.t2mlab.com:3008/sistema-biblioteca
+    url_categoria_cadastrar: http://sistemas.t2mlab.com:3008/cadastrar-categoria
+    url_categoria_buscar: http://sistemas.t2mlab.com:3008/buscar-categoria
+    url_categoria_menu: http://sistemas.t2mlab.com:3008/categoria
+    url_categoria_alterar: http://sistemas.t2mlab.com:3008/alterar-categoria/
+    url_categoria_inativas: http://sistemas.t2mlab.com:3008/buscar-categoria-inativa
+    url_dominio_cadastrar: http://sistemas.t2mlab.com:3008/cadastrar-dominio
+    url_dominio_buscar: http://sistemas.t2mlab.com:3008/buscar-dominio
+    url_dominio_menu: http://sistemas.t2mlab.com:3008/dominio
+    url_dominio_alterar: http://sistemas.t2mlab.com:3008/alterar-dominio/
+    url_dominio_inativas: http://sistemas.t2mlab.com:3008/buscar-dominio-inativo
+    url_conhecimento_cadastrar: http://sistemas.t2mlab.com:3008/cadastrar-conhecimento
+    url_conhecimento_buscar: http://sistemas.t2mlab.com:3008/buscar-conhecimento
+    implicity_wait: 30
+
+  files:
+    screenshot_outputted: screenshots
+    downloads_outputted: downloads
