@@ -1,7 +1,7 @@
 # PROJETO FINAL DE CONCLUSÃO DO CURSO DE IQS - 2024.1
 
 Repositório dos testes de Frontend do Sistema de Biblioteca. 
-Foi desenvolvido com RobotFramework em Python, Selenium para comunicação com os elementos da página web em conjunto com o driver de seu navegador.
+Foi desenvolvido com RobotFramework em Python, Selenium para comunicação com os elementos da página web em conjunto com o driver de seu navegador; para automação dos casos de testes levantados na etapa de mapeamento de casos de testes para os requisitos disponíveis no Backlog.
 
 ## Arquitetura
 - Será utilizado o Design Pattern Page Object, que consiste em criar camadas de abstração, dividindo seus elementos e suas ações centralizado em cada página web. Tornando o projeto mais organizado e de fácil manutenção.
